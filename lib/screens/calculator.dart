@@ -1,3 +1,4 @@
+import 'package:carbonsense/components/custom_slider.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +15,9 @@ import 'package:google_fonts/google_fonts.dart';
    */
 
 class Calculator extends StatelessWidget {
-  const Calculator({super.key});
+  final PageController _pageController = PageController();
+
+  Calculator({super.key});
 
   Widget _buildNextButton() {
     return MaterialButton(
@@ -23,7 +26,12 @@ class Calculator extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       elevation: 0,
-      onPressed: () {},
+      onPressed: () {
+        _pageController.nextPage(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.ease,
+        );
+      },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -33,7 +41,7 @@ class Calculator extends StatelessWidget {
               color: kDarkGreen,
             ),
           ),
-          Icon(
+          const Icon(
             Icons.keyboard_arrow_right_outlined,
             color: kDarkGreen,
           ),
@@ -42,22 +50,165 @@ class Calculator extends StatelessWidget {
     );
   }
 
-  Widget _buildFirstPage() {
+  Widget _buildFirstPage(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    double _kSystemSpaceAround = 200;
+
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: SizedBox(
+        width: size.width,
+        height: size.height - _kSystemSpaceAround,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(60),
+              child: Icon(
+                Icons.wallet_travel_outlined,
+                color: kDarkGreen,
+                size: 45,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Quanti kilometri percorri al giorno in media con la tua auto?",
+                style: GoogleFonts.montserrat(
+                  color: kDarkGreen,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const CustomSlider(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              max: 200,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 16,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "E con i mezzi pubblici?",
+                style: GoogleFonts.montserrat(
+                  color: kDarkGreen,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const CustomSlider(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              max: 200,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                top: 16,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Quante ore trascorri in aereo all'anno? (circa)",
+                style: GoogleFonts.montserrat(
+                  color: kDarkGreen,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const CustomSlider(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              max: 200,
+            ),
+            const Spacer(),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: _buildNextButton(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSecondPage() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
-        Icon(
-          Icons.car_crash,
-          color: kDarkGreen,
-        ),
-        Text(
-          "Quale mezzo usi di solito?",
-          style: GoogleFonts.montserrat(
+        const Padding(
+          padding: EdgeInsets.all(60),
+          child: Icon(
+            Icons.house,
             color: kDarkGreen,
+            size: 45,
           ),
         ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Qual è il consumo medio giornaliero di elettricità nella tua abitazione (in kilowatt-ora)?",
+            style: GoogleFonts.montserrat(
+              color: kDarkGreen,
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        const CustomSlider(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          max: 200,
+        ),
+        const Spacer(),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: _buildNextButton(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildThirdPage() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        const Padding(
+          padding: EdgeInsets.all(60),
+          child: Icon(
+            Icons.smartphone,
+            color: kDarkGreen,
+            size: 45,
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Quanto tempo trascorri utilizzando dispositivi elettronici (computer, smartphone, tablet) ogni giorno?",
+            style: GoogleFonts.montserrat(
+              color: kDarkGreen,
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+        const CustomSlider(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          round: false,
+          steps: 48,
+          max: 24,
+        ),
+        const Spacer(),
         Align(
           alignment: Alignment.bottomRight,
           child: _buildNextButton(),
@@ -70,12 +221,24 @@ class Calculator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("test", style: GoogleFonts.montserrat()),
+        centerTitle: false,
+        title: Text(
+          "CarbonSense Calc",
+          style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
-      body: PageView(
-        children: [
-          _buildFirstPage(),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: PageView(
+          controller: _pageController,
+          children: [
+            _buildFirstPage(context),
+            _buildSecondPage(),
+            _buildThirdPage(),
+          ],
+        ),
       ),
     );
   }
