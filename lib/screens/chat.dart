@@ -1,5 +1,6 @@
 import 'package:carbonsense/components/chat_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Chat extends StatelessWidget {
   const Chat({super.key});
@@ -39,20 +40,27 @@ class Chat extends StatelessWidget {
         ],
       ),
       appBar: AppBar(
-        title: const Text("Test"),
+        title: Text("Test", style: GoogleFonts.montserrat()),
       ),
       body: Column(
         children: [
           Expanded(
             child: ListView(
-              children: [
-                Container(
-                  child: ChatBubble(text: "prova"),
+              children: const [
+                ChatBubble(text: "prova"),
+                ChatBubble(
+                  text: "AOAO",
+                  type: ChatBubbleType.chatBubbleAvatarOnRight,
+                ),
+                ChatBubble(
+                  text:
+                      "prov ajkasjkdn askjdnaskjdnka jsndkjna sdkjansd kjnasdkjn askdj naskjdn kjasnd kjans a",
+                  hasQuickQuestions: true,
                 ),
               ],
             ),
           ),
-          Container(
+          const SizedBox(
             width: double.infinity,
             height: 64,
             child: Placeholder(
