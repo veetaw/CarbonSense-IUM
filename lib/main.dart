@@ -1,4 +1,5 @@
-import 'package:carbonsense/screens/chat.dart';
+import 'package:carbonsense/screens/calculator.dart';
+import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,8 +11,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Chat(),
+    return MaterialApp(
+      theme: ThemeData(
+        colorSchemeSeed: kDarkGreen,
+        useMaterial3: true,
+        sliderTheme: const SliderThemeData(
+          showValueIndicator: ShowValueIndicator.always,
+        ),
+      ),
+      home: const Calculator(),
     );
   }
 }
