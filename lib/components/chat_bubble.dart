@@ -1,6 +1,7 @@
 import 'package:carbonsense/constants/quick_questions.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum ChatBubbleType { chatBubbleAvatarOnLeft, chatBubbleAvatarOnRight }
 
@@ -81,6 +82,7 @@ class ChatBubble extends StatelessWidget {
                     child: Text(
                       text,
                       maxLines: 10,
+                      style: GoogleFonts.montserrat(),
                     ),
                   ),
                 ),
@@ -99,9 +101,9 @@ class ChatBubble extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "DOMANDE RAPIDE",
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: GoogleFonts.montserrat(fontWeight: FontWeight.w600),
                   ),
                   ...kQuickQuestions
                       .map(
@@ -126,7 +128,7 @@ class ChatBubble extends StatelessWidget {
                               padding: const EdgeInsets.all(10),
                               child: Text(
                                 e,
-                                style: const TextStyle(
+                                style: GoogleFonts.montserrat(
                                   color: kDarkGreen,
                                   fontWeight: FontWeight.w600,
                                 ),
