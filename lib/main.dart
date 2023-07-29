@@ -1,7 +1,4 @@
-import 'package:carbonsense/models/carbon_footprint.dart';
-import 'package:carbonsense/screens/calculator.dart';
 import 'package:carbonsense/screens/home_navigator.dart';
-import 'package:carbonsense/screens/homepage.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
 
