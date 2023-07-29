@@ -13,7 +13,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: false,
-      leading: Image.asset("assets/logo.png"),
+      leading: Semantics(
+        image: true,
+        readOnly: true,
+        label: "Il logo dell'applicazione.",
+        child: Image.asset("assets/logo.png"),
+      ),
       title: Text(
         title ?? "CarbonSense",
         style: GoogleFonts.montserrat(
