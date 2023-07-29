@@ -1,3 +1,4 @@
+import 'package:carbonsense/components/custom_app_bar.dart';
 import 'package:carbonsense/constants/fun_facts.dart';
 import 'package:carbonsense/extensions/random_item_list.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
@@ -18,9 +19,7 @@ class _FunFactState extends State<FunFact> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Test", style: GoogleFonts.montserrat()),
-      ),
+      appBar: const CustomAppBar(),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(16),

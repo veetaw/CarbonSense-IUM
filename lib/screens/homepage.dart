@@ -1,3 +1,4 @@
+import 'package:carbonsense/components/custom_app_bar.dart';
 import 'package:carbonsense/models/carbon_footprint.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -17,15 +18,8 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        leading: Image.asset("assets/logo.png"),
-        title: Text(
-          "La tua impronta",
-          style: GoogleFonts.montserrat(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+      appBar: const CustomAppBar(
+        title: "La tua impronta",
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

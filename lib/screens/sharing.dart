@@ -1,3 +1,4 @@
+import 'package:carbonsense/components/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class Sharing extends StatelessWidget {
@@ -5,6 +6,9 @@ class Sharing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Scaffold(
+      appBar: CustomAppBar(),
+      body: Placeholder(),
+    );
   }
 }
