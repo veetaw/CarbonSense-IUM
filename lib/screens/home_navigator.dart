@@ -45,7 +45,7 @@ class HomeNavigator extends StatelessWidget {
             case "map":
               return pageBuilder(const Sharing());
             case "air_quality":
-              return pageBuilder(const AirQuality());
+              return pageBuilder(AirQuality());
             case "home":
             default:
               if (settings.arguments != null) {
