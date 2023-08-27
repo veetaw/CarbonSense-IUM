@@ -11,9 +11,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_map: ^5.0.0
+  flutter_map_marker_popup: ^5.2.0
   font_awesome_flutter: ^10.5.0
   google_fonts: ^5.1.0
   http: ^1.1.0
+  latlong2: ^0.9.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -1,6 +1,5 @@
 import 'package:carbonsense/components/custom_app_bar.dart';
 import 'package:carbonsense/constants/aqi.dart';
-import 'package:carbonsense/models/service/aqi_response.dart';
 import 'package:carbonsense/service/aqi_api.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +81,7 @@ class _AirQualityState extends State<AirQuality> {
                   color: kDarkGreen, // kDarkGreen
                 ),
                 hintText: 'Dove vuoi andare?',
-                hintStyle: TextStyle(color: Colors.grey[800]),
+                hintStyle: GoogleFonts.montserrat(color: Colors.grey[800]),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
