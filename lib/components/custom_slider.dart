@@ -4,10 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomSlider extends StatefulWidget {
   final double max;
   final double min;
-  final double initialValue;
+  final double? initialValue;
   final EdgeInsets padding;
   final bool round;
   final int? steps;
+  final Function(double) onChange;
 
   const CustomSlider({
     super.key,
@@ -17,6 +18,7 @@ class CustomSlider extends StatefulWidget {
     this.padding = EdgeInsets.zero,
     this.round = false,
     this.steps,
+    required this.onChange,
   });
 
   @override
@@ -28,7 +30,7 @@ class _CustomSliderState extends State<CustomSlider> {
 
   @override
   void initState() {
-    value ??= widget.initialValue;
+    value ??= (widget.initialValue ?? 0);
     super.initState();
   }
 
@@ -52,6 +54,7 @@ class _CustomSliderState extends State<CustomSlider> {
               value: value!,
               divisions: widget.steps,
               onChanged: (v) {
+                widget.onChange(v);
                 setState(() => value = v);
               },
               label: widget.round

@@ -120,6 +120,7 @@ class ChatBubble extends StatelessWidget {
                               kRoundBorderRadius / 2,
                             ),
                             onTap: () {
+                              print("hei, ${onQuickQuestionTap == null}");
                               if (onQuickQuestionTap != null) {
                                 onQuickQuestionTap!(e);
                               }

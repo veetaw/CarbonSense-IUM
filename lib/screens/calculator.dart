@@ -14,10 +14,21 @@ import 'package:google_fonts/google_fonts.dart';
   Quante ore trascorri in aereo ogni anno (calcola una media giornaliera)?
    */
 
-class Calculator extends StatelessWidget {
-  final PageController _pageController = PageController();
+class Calculator extends StatefulWidget {
+  const Calculator({super.key});
 
-  Calculator({super.key});
+  @override
+  State<Calculator> createState() => _CalculatorState();
+}
+
+class _CalculatorState extends State<Calculator> {
+  double? kmAuto;
+  double? kmMezzi;
+  double? oreAereo;
+  double? kwhCasa;
+  double? oreUsoTablet;
+
+  final PageController _pageController = PageController();
 
   Widget _buildNextButton() {
     return MaterialButton(
@@ -37,6 +48,74 @@ class Calculator extends StatelessWidget {
         children: [
           Text(
             "Avanti",
+            style: GoogleFonts.montserrat(
+              color: kDarkGreen,
+            ),
+          ),
+          const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: kDarkGreen,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPrevButton() {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: InkWell(
+        onTap: () => _pageController.previousPage(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.ease,
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.keyboard_arrow_left_outlined,
+              color: kDarkGreen,
+            ),
+            Text(
+              "Indietro",
+              style: GoogleFonts.montserrat(
+                color: kDarkGreen,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFinishButton() {
+    return MaterialButton(
+      color: kLightGreen4.withOpacity(.5),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      elevation: 0,
+      onPressed: () {
+        double kmAutoMultiplied = (kmAuto ?? 0) * 20;
+        double kmMezziMultiplied = (kmMezzi ?? 0) * 0.8;
+        double oreAereoMultipied = (oreAereo ?? 0) * 35;
+        double kwhCasaMultiplied = (kwhCasa ?? 0) * 15;
+        double oreUsoTabletMultiplied = (oreUsoTablet ?? 0) * 1;
+
+        double result = kmAutoMultiplied +
+            kmMezziMultiplied +
+            oreAereoMultipied +
+            kwhCasaMultiplied +
+            oreUsoTabletMultiplied;
+
+        double normalizedResult = (result / 14184) * 5;
+
+        print(normalizedResult);
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Fine",
             style: GoogleFonts.montserrat(
               color: kDarkGreen,
             ),
@@ -84,9 +163,11 @@ class Calculator extends StatelessWidget {
                 ),
               ),
             ),
-            const CustomSlider(
-              padding: EdgeInsets.symmetric(vertical: 16),
+            CustomSlider(
+              padding: const EdgeInsets.symmetric(vertical: 16),
               max: 200,
+              initialValue: kmAuto,
+              onChange: (v) => setState(() => kmAuto = v),
             ),
             const Padding(
               padding: EdgeInsets.only(
@@ -104,9 +185,11 @@ class Calculator extends StatelessWidget {
                 ),
               ),
             ),
-            const CustomSlider(
-              padding: EdgeInsets.symmetric(vertical: 16),
+            CustomSlider(
+              padding: const EdgeInsets.symmetric(vertical: 16),
               max: 200,
+              initialValue: kmMezzi,
+              onChange: (v) => setState(() => kmMezzi = v),
             ),
             const Padding(
               padding: EdgeInsets.only(
@@ -124,9 +207,11 @@ class Calculator extends StatelessWidget {
                 ),
               ),
             ),
-            const CustomSlider(
-              padding: EdgeInsets.symmetric(vertical: 16),
+            CustomSlider(
+              padding: const EdgeInsets.symmetric(vertical: 16),
               max: 200,
+              initialValue: oreAereo,
+              onChange: (v) => setState(() => oreAereo = v),
             ),
             const Spacer(),
             Align(
@@ -145,6 +230,7 @@ class Calculator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
+        _buildPrevButton(),
         const Padding(
           padding: EdgeInsets.all(60),
           child: Icon(
@@ -164,14 +250,19 @@ class Calculator extends StatelessWidget {
             ),
           ),
         ),
-        const CustomSlider(
-          padding: EdgeInsets.symmetric(vertical: 16),
+        CustomSlider(
+          padding: const EdgeInsets.symmetric(vertical: 16),
           max: 200,
+          initialValue: kwhCasa,
+          onChange: (v) => setState(() => kwhCasa = v),
         ),
         const Spacer(),
         Align(
           alignment: Alignment.bottomRight,
           child: _buildNextButton(),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 32),
         ),
       ],
     );
@@ -183,6 +274,7 @@ class Calculator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: [
+        _buildPrevButton(),
         const Padding(
           padding: EdgeInsets.all(60),
           child: Icon(
@@ -202,16 +294,21 @@ class Calculator extends StatelessWidget {
             ),
           ),
         ),
-        const CustomSlider(
-          padding: EdgeInsets.symmetric(vertical: 16),
+        CustomSlider(
+          padding: const EdgeInsets.symmetric(vertical: 16),
           round: false,
           steps: 48,
           max: 24,
+          initialValue: oreUsoTablet,
+          onChange: (v) => setState(() => oreUsoTablet = v),
         ),
         const Spacer(),
         Align(
           alignment: Alignment.bottomRight,
-          child: _buildNextButton(),
+          child: _buildFinishButton(),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(bottom: 32),
         ),
       ],
     );

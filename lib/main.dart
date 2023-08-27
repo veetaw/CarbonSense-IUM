@@ -1,8 +1,14 @@
+import 'package:carbonsense/screens/calculator.dart';
 import 'package:carbonsense/screens/home_navigator.dart';
+import 'package:carbonsense/service/shared_preferences_service.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SharedPreferenceService.init();
+
   runApp(const MyApp());
 }
 
@@ -19,7 +25,9 @@ class MyApp extends StatelessWidget {
           showValueIndicator: ShowValueIndicator.always,
         ),
       ),
-      home: const HomeNavigator(),
+      home: SharedPreferenceService.firstTimeOpeningApp
+          ? const Calculator()
+          : const HomeNavigator(),
     );
   }
 }

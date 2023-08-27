@@ -4,6 +4,8 @@ import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final List<ChatBubble> chat = [];
+
 class Chat extends StatefulWidget {
   const Chat({super.key});
 
@@ -12,7 +14,6 @@ class Chat extends StatefulWidget {
 }
 
 class _ChatState extends State<Chat> {
-  final List<ChatBubble> chat = [];
   final TextEditingController controller = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
@@ -70,26 +71,7 @@ class _ChatState extends State<Chat> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
                 controller: controller,
-                onSubmitted: (value) {
-                  if (responded) {
-                    setState(() {
-                      controller.clear();
-                      chat.add(ChatBubble(
-                        text: value,
-                        type: ChatBubbleType.chatBubbleAvatarOnRight,
-                      ));
-                    });
-                    if (chat.length > 3) {
-                      scrollController.animateTo(
-                        scrollController.position.maxScrollExtent + 150,
-                        duration: const Duration(seconds: 2),
-                        curve: Curves.fastOutSlowIn,
-                      );
-                    }
-
-                    askChatGpt(value);
-                  }
-                },
+                onSubmitted: _sendMessage,
                 decoration: InputDecoration(
                   fillColor: kLightGreen4,
                   hintText: 'Scrivi qui la tua domanda',
@@ -108,6 +90,27 @@ class _ChatState extends State<Chat> {
     );
   }
 
+  void _sendMessage(value) {
+    if (responded) {
+      setState(() {
+        controller.clear();
+        chat.add(ChatBubble(
+          text: value,
+          type: ChatBubbleType.chatBubbleAvatarOnRight,
+        ));
+      });
+      if (chat.length > 3) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent + 150,
+          duration: const Duration(seconds: 2),
+          curve: Curves.fastOutSlowIn,
+        );
+      }
+
+      askChatGpt(value);
+    }
+  }
+
   void askChatGpt(String value) {
     setState(() {
       typing = true;
@@ -120,11 +123,12 @@ class _ChatState extends State<Chat> {
           typing = false;
         });
         chat.add(
-          const ChatBubble(
+          ChatBubble(
             text:
                 "Questa dovrebbe essere una risposta da chat gpt si scafa pagass",
             type: ChatBubbleType.chatBubbleAvatarOnLeft,
             hasQuickQuestions: true,
+            onQuickQuestionTap: _sendMessage,
           ),
         );
         setState(() {
