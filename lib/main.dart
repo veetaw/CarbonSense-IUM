@@ -4,6 +4,8 @@ import 'package:carbonsense/service/shared_preferences_service.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -25,9 +27,22 @@ class MyApp extends StatelessWidget {
           showValueIndicator: ShowValueIndicator.always,
         ),
       ),
-      home: SharedPreferenceService.firstTimeOpeningApp
-          ? const Calculator()
-          : const HomeNavigator(),
+      home: Navigator(
+        key: navigatorKey,
+        initialRoute: "/",
+        onGenerateRoute: (settings) {
+          if (settings.name == "h") {
+            return MaterialPageRoute(
+              builder: (_) => const HomeNavigator(),
+            );
+          }
+          return MaterialPageRoute(
+            builder: (_) => SharedPreferenceService.firstTimeOpeningApp
+                ? const Calculator()
+                : const HomeNavigator(),
+          );
+        },
+      ),
     );
   }
 }

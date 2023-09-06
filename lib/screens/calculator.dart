@@ -1,6 +1,9 @@
 import 'package:carbonsense/components/custom_slider.dart';
+import 'package:carbonsense/main.dart';
+import 'package:carbonsense/service/shared_preferences_service.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /*
@@ -15,7 +18,8 @@ import 'package:google_fonts/google_fonts.dart';
    */
 
 class Calculator extends StatefulWidget {
-  const Calculator({super.key});
+  final bool back;
+  const Calculator({super.key, this.back = false});
 
   @override
   State<Calculator> createState() => _CalculatorState();
@@ -109,7 +113,18 @@ class _CalculatorState extends State<Calculator> {
 
         double normalizedResult = (result / 14184) * 5;
 
-        print(normalizedResult);
+        SharedPreferenceService.firstTimeOpeningApp = false;
+
+        SharedPreferenceService.carbonFootprintResult = normalizedResult;
+        SharedPreferenceService.kmAutoNormalized = ((kmAuto ?? 0) / 200) * 5;
+        SharedPreferenceService.kmMezziNormalized = ((kmMezzi ?? 0) / 200) * 5;
+        SharedPreferenceService.oreAereoNormalized =
+            ((oreAereo ?? 0) / 200) * 5;
+        SharedPreferenceService.kwhCasaNormalized = ((kwhCasa ?? 0) / 200) * 5;
+        SharedPreferenceService.oreUsoTabletNormalized =
+            ((oreUsoTablet ?? 0) / 24) * 5;
+
+        Navigator.of(context).pushNamed("h");
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -318,6 +333,17 @@ class _CalculatorState extends State<Calculator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: widget.back
+            ? InkWell(
+                child: const Icon(
+                  Icons.arrow_back_ios_new,
+                  color: kDarkGreen,
+                ),
+                onTap: () {
+                  Navigator.of(context).pushNamed("h");
+                },
+              )
+            : Container(),
         centerTitle: false,
         title: Text(
           "CarbonSense Calc",

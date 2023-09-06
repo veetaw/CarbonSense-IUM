@@ -124,8 +124,7 @@ class _ChatState extends State<Chat> {
         });
         chat.add(
           ChatBubble(
-            text:
-                "Questa dovrebbe essere una risposta da chat gpt si scafa pagass",
+            text: "Questa dovrebbe essere una risposta da chat gpt",
             type: ChatBubbleType.chatBubbleAvatarOnLeft,
             hasQuickQuestions: true,
             onQuickQuestionTap: _sendMessage,

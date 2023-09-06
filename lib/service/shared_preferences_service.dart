@@ -12,6 +12,12 @@ class SharedPreferenceService {
   static late final SharedPreferences _instance;
 
   static const String _kFirstTimeOpeningApp = "firstTimeOpeningApp";
+  static const String _kCarbonFootprintIndex = "carbonFootprintIndex";
+  static const String _kKmAutoNormalized = "kmAutoNormalized";
+  static const String _kOreAereoNormalized = "oreAereoNormalized";
+  static const String _kKmMezziNormalized = "kmMezziNormalized";
+  static const String _kKwhCasaNormalized = "kwhCasaNormalized";
+  static const String _kOreUsoTabletNormalized = "oreUsoTabletNormalized";
 
   /// Creates [SharedPreferenceService._instance], this should be called in the
   /// main function after `WidgetsFlutterBinding.ensureInitialized()`
@@ -26,4 +32,35 @@ class SharedPreferenceService {
   /// This should be set to false after the landing page only once
   static set firstTimeOpeningApp(bool value) =>
       _instance.setBool(_kFirstTimeOpeningApp, value);
+
+  static double get carbonFootprintResult =>
+      _instance.getDouble(_kCarbonFootprintIndex) ?? 0;
+
+  static set carbonFootprintResult(double value) =>
+      _instance.setDouble(_kCarbonFootprintIndex, value);
+
+  static double get kmAutoNormalized =>
+      _instance.getDouble(_kKmAutoNormalized) ?? 0;
+  static set kmAutoNormalized(double value) =>
+      _instance.setDouble(_kKmAutoNormalized, value);
+
+  static double get kmMezziNormalized =>
+      _instance.getDouble(_kKmMezziNormalized) ?? 0;
+  static set kmMezziNormalized(double value) =>
+      _instance.setDouble(_kKmMezziNormalized, value);
+
+  static double get kwhCasaNormalized =>
+      _instance.getDouble(_kKwhCasaNormalized) ?? 0;
+  static set kwhCasaNormalized(double value) =>
+      _instance.setDouble(_kKwhCasaNormalized, value);
+
+  static double get oreUsoTabletNormalized =>
+      _instance.getDouble(_kOreUsoTabletNormalized) ?? 0;
+  static set oreUsoTabletNormalized(double value) =>
+      _instance.setDouble(_kOreUsoTabletNormalized, value);
+
+  static double get oreAereoNormalized =>
+      _instance.getDouble(_kOreAereoNormalized) ?? 0;
+  static set oreAereoNormalized(double value) =>
+      _instance.setDouble(_kOreAereoNormalized, value);
 }
