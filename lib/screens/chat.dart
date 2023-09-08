@@ -1,6 +1,7 @@
 import 'package:carbonsense/components/chat_bubble.dart';
 import 'package:carbonsense/components/custom_app_bar.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
+import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -116,31 +117,45 @@ class _ChatState extends State<Chat> {
       typing = true;
       responded = false;
     });
-    Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        setState(() {
-          typing = false;
-        });
-        chat.add(
-          ChatBubble(
-            text: "Questa dovrebbe essere una risposta da chat gpt",
-            type: ChatBubbleType.chatBubbleAvatarOnLeft,
-            hasQuickQuestions: true,
-            onQuickQuestionTap: _sendMessage,
+    OpenAI.instance.chat.create(
+      model: "gpt-3.5-turbo",
+      messages: [
+        const OpenAIChatCompletionChoiceMessageModel(
+          content:
+              "Sei un chatbot che aiuta gli utenti dell'app CarbonSense a diminuire la propria carbon footprint. Inoltre darai informazioni e risponderai ad eventuali dubbi che l'utente potrà avere essendo chiaro, sintetico ed amichevole. Se ti fa una domanda che non è nell'argomento, non rispondere.",
+          role: OpenAIChatMessageRole.system,
+        ),
+        ...chat.map(
+          (e) => OpenAIChatCompletionChoiceMessageModel(
+            content: e.text,
+            role: e.type == ChatBubbleType.chatBubbleAvatarOnLeft
+                ? OpenAIChatMessageRole.assistant
+                : OpenAIChatMessageRole.user,
           ),
-        );
-        setState(() {
-          responded = true;
-          if (chat.length > 3) {
-            scrollController.animateTo(
-              scrollController.position.maxScrollExtent + 350,
-              duration: const Duration(seconds: 2),
-              curve: Curves.fastOutSlowIn,
-            );
-          }
-        });
-      },
-    );
+        ),
+      ],
+    ).then((response) {
+      setState(() {
+        typing = false;
+      });
+      chat.add(
+        ChatBubble(
+          text: response?.choices.first.message?.content ?? "Errore...",
+          type: ChatBubbleType.chatBubbleAvatarOnLeft,
+          hasQuickQuestions: true,
+          onQuickQuestionTap: _sendMessage,
+        ),
+      );
+      setState(() {
+        responded = true;
+        if (chat.length > 3) {
+          scrollController.animateTo(
+            scrollController.position.maxScrollExtent + 350,
+            duration: const Duration(seconds: 2),
+            curve: Curves.fastOutSlowIn,
+          );
+        }
+      });
+    });
   }
 }

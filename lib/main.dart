@@ -1,7 +1,9 @@
+import 'package:carbonsense/.secret.dart';
 import 'package:carbonsense/screens/calculator.dart';
 import 'package:carbonsense/screens/home_navigator.dart';
 import 'package:carbonsense/service/shared_preferences_service.dart';
 import 'package:carbonsense/theme/constants/colors.dart';
+import 'package:dart_openai/dart_openai.dart';
 import 'package:flutter/material.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -10,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SharedPreferenceService.init();
+  OpenAI.apiKey = kChatGPTToken;
 
   runApp(const MyApp());
 }
