@@ -10,7 +10,7 @@ Gruppo 8 composto da:
 ### Istruzioni per la compilazione:
 - Avere Flutter e Dart correttamente installati sul sistema.
 - Aggiungere le proprie chiavi private ottenute rispettivamente da:
-        - [ ] (AQI)[https://aqicn.org/data-platform/token/]
-        - [ ] (OpenAI)[https://platform.openai.com/docs/api-reference]
+        - [AQI](https://aqicn.org/data-platform/token/)
+        - [OpenAI](https://platform.openai.com/docs/api-reference)
 - portarsi nella cartella contenente questa repository ed eseguire ```flutter run```
 
