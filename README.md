@@ -1,16 +1,16 @@
-# carbonsense
+## CarbonSense
 
-A new Flutter project.
+Progetto sviluppato per l'esame di *Interazione Uuomo-Macchina* tenuto dalla prof.ssa *Giuliana Vitiello* e il dr. *Andrea Cantone*.
 
-## Getting Started
+Gruppo 8 composto da:
+- Piegari Vito Gerardo
+- Scafa Giuseppe
+- Spagnuolo Michele
 
-This project is a starting point for a Flutter application.
+### Istruzioni per la compilazione:
+- Avere Flutter e Dart correttamente installati sul sistema.
+- Aggiungere le proprie chiavi private ottenute rispettivamente da:
+        - [ ] (AQI)[https://aqicn.org/data-platform/token/]
+        - [ ] (OpenAI)[https://platform.openai.com/docs/api-reference]
+- portarsi nella cartella contenente questa repository ed eseguire ```flutter run```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
